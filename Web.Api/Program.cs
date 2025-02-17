@@ -19,6 +19,9 @@ builder.Services.InitAutoMapper();
 // Init mem cache
 builder.Services.AddMemoryCache();
 
+// Init Circuit Breaker
+builder.Services.AddPolly();
+
 // Init controllers
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -31,7 +34,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 builder.Services.AddServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddSwagger();
+builder.Services.AddSwagger();  
 
 // Init JWT
 builder.Services.AddAuthentication(builder.Configuration);

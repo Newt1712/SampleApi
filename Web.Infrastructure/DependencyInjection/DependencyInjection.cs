@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Web.Infrastructure.DBContext;
 using Web.Infrastructure.DependencyInjection;
+using Web.Infrastructure.Middlewares;
 using Web.Infrastructure.Repositories;
 
 namespace Web.Infrastructure.DependencyInjection
@@ -48,6 +49,14 @@ namespace Web.Infrastructure.DependencyInjection
         public static IServiceCollection AddHttpContextAccessor(this IServiceCollection services)
         {
             services.AddHttpContextAccessor();
+            return services;
+        }
+        #endregion
+
+        #region CircuitBreaker
+        public static IServiceCollection AddPolly(this IServiceCollection services)
+        {
+            services.AddSingleton(PollyPolicyRegistry.GetPolicies());
             return services;
         }
         #endregion
