@@ -16,9 +16,10 @@ namespace Web.Api.Controllers
     {
         private readonly IClubService _clubService;
         private readonly IMapper _mapper;
-        public ClubsController(IClubService clubService)
+        public ClubsController(IClubService clubService, IMapper mapper)
         {
             _clubService = clubService;
+            _mapper = mapper;
         }
 
         [HttpGet("{clubId}")]

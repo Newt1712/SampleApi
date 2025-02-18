@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Web.Domains.Entities;
 
@@ -34,5 +35,27 @@ namespace Web.Infrastructure.DBContext
         }
         public DbSet<Club> Clubs { get; set; }
         public DbSet<ClubMembership> ClubMemberships { get; set; }
+
+
+
+        #region To able to run "dotnet ef migrations"
+
+        /// <summary>
+        /// To able to use dotnet migrations, the value of connection string is not matter
+        /// </summary>
+        public class ApplicationContextDesignFactory : IDesignTimeDbContextFactory<DatabaseContext>
+        {
+            private readonly IConfiguration configuration;
+            public DatabaseContext CreateDbContext(string[] args)
+            {
+
+                var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>()
+                    .UseNpgsql(configuration.GetConnectionString("DbConnection"));
+
+                return new DatabaseContext(optionsBuilder.Options, configuration);
+            }
+        }
+
+        #endregion
     }
 }

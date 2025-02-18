@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Web.Infrastructure.DBContext;
 using Web.Infrastructure.DependencyInjection;
+using Web.Infrastructure.Messaging;
 using Web.Infrastructure.Middlewares;
 using Web.Infrastructure.Repositories;
 
@@ -52,6 +53,15 @@ namespace Web.Infrastructure.DependencyInjection
             return services;
         }
         #endregion
+
+        #region Messaging
+        public static IServiceCollection AddMessageBus(this IServiceCollection services)
+        {
+            services.AddScoped<IMessageBus, RabbitMqMessageBus>();
+            return services;
+        }
+        #endregion
+
 
         #region CircuitBreaker
         public static IServiceCollection AddPolly(this IServiceCollection services)

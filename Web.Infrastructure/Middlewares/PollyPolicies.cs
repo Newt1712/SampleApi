@@ -4,8 +4,6 @@ using Polly.Registry;
 using Polly.Timeout;
 using Polly.Retry;
 using System;
-
-
 namespace Web.Infrastructure.Middlewares
 {
 

@@ -6,9 +6,6 @@ using Web.Application.DI;
 using Web.Infrastructure.DependencyInjection;
 using Web.Infrastructure.DBContext;
 
-
-
-
 //-------------------------------------------- Builder --------------------------------------------
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +19,9 @@ builder.Services.AddMemoryCache();
 // Init Circuit Breaker
 builder.Services.AddPolly();
 
+// Init MessageBus
+builder.Services.AddMessageBus();
+
 // Init controllers
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -29,6 +29,9 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 // Init db Context
 builder.Services.AddDbContext(builder.Configuration);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+// Init repositories
+builder.Services.AddRepositories();
 
 // Init services
 builder.Services.AddServices();
